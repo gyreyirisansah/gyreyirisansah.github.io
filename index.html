@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Paul Sansah Gyreyiri | ML, 3D Vision & Immersive Computing</title>
+  <meta name="description" content="Personal website of Paul Sansah Gyreyiri, PhD candidate building machine-learning systems for 3D vision, neural rendering, XR security, and behavioral biometrics." />
+
+  <style>
+    :root{
+      --bg:#f6f8fc;
+      --surface:#ffffff;
+      --surface-blue:#eef5ff;
+      --ink:#0c1730;
+      --muted:#58677f;
+      --soft:#7a89a3;
+      --blue:#185abc;
+      --blue-2:#2f80ed;
+      --blue-3:#dceaff;
+      --yellow:#f4b400;
+      --yellow-soft:#fff4cf;
+      --line:#d9e2f1;
+      --line-strong:#bdcce3;
+      --shadow:0 24px 60px rgba(18,45,89,.12);
+      --shadow-soft:0 12px 30px rgba(18,45,89,.08);
+      --radius:26px;
+      --radius-sm:16px;
+      --max:1180px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--ink);
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background:
+        radial-gradient(900px 520px at 6% -8%, rgba(47,128,237,.18), transparent 62%),
+        radial-gradient(820px 540px at 92% 2%, rgba(244,180,0,.18), transparent 58%),
+        linear-gradient(180deg,#fbfdff 0%,var(--bg) 42%,#eef4ff 100%);
+      line-height:1.62;
+      overflow-x:hidden;
+    }
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:
+        linear-gradient(rgba(24,90,188,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(24,90,188,.045) 1px, transparent 1px);
+      background-size:56px 56px;
+      mask-image:linear-gradient(to bottom, rgba(0,0,0,.75), transparent 70%);
+    }
+
+    a{color:inherit;text-decoration:none}
+    a:hover{color:var(--blue)}
+    img,video{max-width:100%;display:block}
+    .container{max-width:var(--max);margin:0 auto;padding:0 22px}
+    .section{padding:92px 0}
+    .section-head{max-width:870px;margin-bottom:34px}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:10px;
+      color:var(--blue);
+      font:800 12px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+      letter-spacing:.15em;text-transform:uppercase;
+      margin-bottom:15px;
+    }
+    .eyebrow::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--yellow);box-shadow:0 0 0 6px rgba(244,180,0,.16)}
+    .section-title{margin:0 0 14px;font-size:clamp(31px,4vw,50px);line-height:1.04;letter-spacing:-.045em}
+    .section-lede{margin:0;color:var(--muted);font-size:17px;max-width:820px}
+    .blue{color:var(--blue)}
+    .yellow{color:#9b6c00}
+
+    /* Navigation */
+    .site-header{
+      position:sticky;top:0;z-index:50;
+      background:rgba(255,255,255,.82);
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid rgba(189,204,227,.72);
+    }
+    .nav-wrap{height:78px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .brand{display:flex;align-items:center;gap:12px;min-width:max-content}
+    .brand-mark{
+      width:44px;height:44px;border-radius:15px;
+      display:grid;place-items:center;
+      color:#fff;font-weight:900;letter-spacing:-.08em;
+      background:linear-gradient(135deg,var(--blue),var(--blue-2));
+      box-shadow:0 14px 28px rgba(24,90,188,.22);
+      position:relative;
+    }
+    .brand-mark::after{content:"";position:absolute;right:-4px;bottom:-4px;width:14px;height:14px;border-radius:50%;background:var(--yellow);border:3px solid #fff}
+    .brand-text strong{display:block;font-size:14px;line-height:1.15}
+    .brand-text span{display:block;color:var(--muted);font-size:12px;margin-top:4px}
+    .nav-links{display:flex;align-items:center;gap:5px;flex-wrap:wrap;justify-content:flex-end}
+    .nav-links a{font-size:13px;font-weight:700;color:var(--muted);padding:9px 11px;border-radius:999px;transition:.18s ease}
+    .nav-links a:hover,.nav-links a.active{background:var(--blue-3);color:var(--blue)}
+    .nav-cta{color:#fff!important;background:linear-gradient(135deg,var(--blue),var(--blue-2));box-shadow:0 12px 28px rgba(24,90,188,.18)}
+    .menu-btn{display:none;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:13px;padding:9px 12px;font-weight:800}
+
+    /* Hero */
+    .hero{position:relative;padding:78px 0 54px}
+    .hero-grid{display:grid;grid-template-columns:1fr;gap:34px;align-items:center}
+    .hero-copy{max-width:980px;margin:0 auto;text-align:center}
+    .hero-copy .eyebrow{justify-content:center}
+    .hero-copy .hero-actions{justify-content:center}
+    .hero-copy .hero-meta{margin-left:auto;margin-right:auto}
+    .hero-copy h1{margin:0;font-size:clamp(44px,6.7vw,78px);line-height:.96;letter-spacing:-.066em}
+    .hero-copy h1 span{display:block;color:var(--blue)}
+    .hero-copy p{margin:24px 0 0;color:#34445d;font-size:18px;max-width:760px}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:12px 17px;border-radius:999px;border:1px solid var(--line-strong);font-weight:850;font-size:14px;transition:.18s ease;background:#fff;color:var(--ink)}
+    .btn:hover{transform:translateY(-2px);border-color:var(--blue-2);box-shadow:0 12px 26px rgba(24,90,188,.12);color:var(--blue)}
+    .btn.primary{border:0;color:#fff;background:linear-gradient(135deg,var(--blue),var(--blue-2));box-shadow:0 20px 44px rgba(24,90,188,.22)}
+    .btn.primary:hover{color:#fff}
+    .btn.yellow{border:0;color:#1f2937;background:linear-gradient(135deg,#ffd766,var(--yellow));box-shadow:0 16px 34px rgba(244,180,0,.22)}
+    .hero-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-top:32px;max-width:780px}
+    .metric{padding:16px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.76);box-shadow:var(--shadow-soft)}
+    .metric strong{display:block;font-size:24px;letter-spacing:-.035em;color:var(--blue)}
+    .metric span{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+
+    .hero-media-card{border:1px solid var(--line-strong);border-radius:32px;background:linear-gradient(180deg,#fff,#f4f8ff);box-shadow:var(--shadow);padding:16px;overflow:hidden;width:100%;max-width:1180px;margin:0 auto}
+    .video-shell{border-radius:24px;overflow:hidden;background:#0b1220;border:1px solid #0b1220;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+    .video-shell video{width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;background:#0b1220}
+    .caption{font-size:12px;color:var(--muted);margin:12px 4px 2px;display:flex;justify-content:space-between;gap:14px;align-items:center}
+    .caption strong{color:var(--ink)}
+    .tab-row{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:12px}
+    .tab-row span{border:1px solid var(--line);border-radius:13px;padding:10px 8px;text-align:center;font-size:12px;color:var(--muted);background:#fff;font-weight:750}
+
+    /* Cards */
+    .intro-card,.contact-panel,.project-card,.mini-card,.pub-list{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.82);
+      box-shadow:var(--shadow-soft);
+    }
+    .intro-card{border-radius:var(--radius);padding:32px;display:grid;grid-template-columns:1fr .72fr;gap:28px;align-items:start}
+    .intro-card p{margin:0 0 14px;color:#34445d}
+    .status-panel{border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,#f8fbff,#fff);padding:20px}
+    .status-row{display:flex;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line);padding:12px 0;font-size:14px}
+    .status-row:first-child{padding-top:0}.status-row:last-child{border-bottom:0;padding-bottom:0}.status-row span:first-child{color:var(--muted)}.status-row span:last-child{text-align:right;color:var(--ink);font-weight:750}
+
+    /* Media system: solid panels keep labels readable */
+    .project-grid{display:grid;grid-template-columns:1fr;gap:24px;margin-top:34px}
+    .project-card{display:grid;grid-template-columns:.96fr 1.04fr;gap:26px;border-radius:var(--radius);padding:24px;overflow:hidden}
+    .project-card:nth-child(even){grid-template-columns:1.04fr .96fr}.project-card:nth-child(even) .project-media{order:2}
+    .project-content{align-self:center}
+    .project-kicker{font:800 12px/1 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--blue);letter-spacing:.13em;text-transform:uppercase;margin-bottom:11px}
+    .project-content h3{margin:0 0 12px;font-size:28px;line-height:1.12;letter-spacing:-.032em}
+    .project-content p{margin:0 0 14px;color:#34445d}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:17px}.chip{font:750 12px/1 ui-monospace,SFMono-Regular,Menlo,monospace;color:#38506f;padding:8px 10px;border:1px solid var(--line);border-radius:999px;background:#f8fbff}
+
+    .project-media{border-radius:22px;overflow:hidden;border:1px solid var(--line-strong);background:#ffffff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.6)}
+    .media-frame{background:#fff;padding:14px;min-height:315px;display:grid;place-items:center}
+    .media-frame img,.media-frame object{width:100%;max-height:390px;object-fit:contain;border-radius:12px;background:#fff}
+    .media-frame.video{padding:0;background:#0b1220}.media-frame.video video{width:100%;height:100%;min-height:315px;object-fit:cover;background:#0b1220}
+    .media-caption{padding:12px 14px;border-top:1px solid var(--line);background:#f8fbff;color:var(--muted);font-size:12px}.media-caption strong{color:var(--ink)}
+
+    .media-duo{display:grid;grid-template-columns:1fr;gap:14px;background:#fff;padding:14px}
+    .media-duo.wide{min-height:unset}
+    .media-duo .media-tile{background:#fff;border:1px solid var(--line);border-radius:14px;display:grid;place-items:center;overflow:auto;padding:10px}
+    .media-duo .media-tile img{width:100%;height:auto;max-height:none;object-fit:contain;border-radius:8px;background:#fff}
+    .media-duo.wide .media-tile img{width:100%;height:auto;max-height:none;object-fit:contain}
+
+    .placeholder{min-height:260px;border:2px dashed var(--line-strong);border-radius:18px;background:linear-gradient(135deg,#fff,#f2f7ff);display:grid;place-items:center;text-align:center;padding:22px;color:var(--muted)}
+    .placeholder strong{display:block;color:var(--ink);font-size:18px;margin-bottom:6px}
+
+    /* Skills */
+    .cards-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
+    .mini-card{border-radius:22px;padding:24px}
+    .mini-card h3{margin:0 0 8px;font-size:18px}.mini-card p{margin:0;color:var(--muted);font-size:14px}.mini-card .icon{width:44px;height:44px;border-radius:15px;display:grid;place-items:center;background:var(--blue-3);border:1px solid #c6dbff;margin-bottom:15px;color:var(--blue);font-weight:900}
+
+    /* Publications */
+    .pub-list{margin-top:30px;border-radius:var(--radius);overflow:hidden}
+    .pub{display:grid;grid-template-columns:150px 1fr auto;gap:18px;align-items:center;padding:20px;border-bottom:1px solid var(--line)}
+    .pub:last-child{border-bottom:0}.venue{font:850 12px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--blue);letter-spacing:.08em;text-transform:uppercase}.pub-title{font-weight:850;line-height:1.35}.pub-authors{color:var(--muted);font-size:13px;margin-top:4px}.pub-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.small-link{border:1px solid var(--line);border-radius:999px;padding:7px 10px;color:var(--muted);font-size:12px;background:#fff;font-weight:750}.small-link:hover{background:var(--blue-3);color:var(--blue)}
+
+    /* Timeline */
+    .timeline{margin-top:30px;border-left:2px solid #c9d9f1;padding-left:24px}.timeline-item{position:relative;padding:0 0 25px}.timeline-item::before{content:"";position:absolute;left:-31px;top:3px;width:12px;height:12px;border-radius:50%;background:var(--yellow);box-shadow:0 0 0 6px rgba(244,180,0,.16)}.timeline-item:last-child{padding-bottom:0}.timeline-item .when{font:800 12px/1 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--blue);letter-spacing:.1em;text-transform:uppercase}.timeline-item h3{margin:7px 0 3px;font-size:17px}.timeline-item p{margin:0;color:var(--muted)}
+
+    /* Contact */
+    .contact-panel{display:grid;grid-template-columns:1fr .9fr;gap:24px;align-items:center;border-radius:32px;background:linear-gradient(135deg,#fff,#eef5ff 58%,#fff8df);padding:34px}.contact-panel h2{margin:0 0 10px;font-size:clamp(30px,4vw,48px);letter-spacing:-.04em;line-height:1.05}.contact-panel p{margin:0;color:#34445d}.contact-links{display:grid;gap:10px}.contact-links a{display:flex;justify-content:space-between;gap:12px;border:1px solid var(--line);border-radius:16px;padding:13px 15px;background:#fff;color:var(--ink);font-weight:750}.contact-links span:last-child{color:var(--muted);font-weight:650}
+    footer{padding:34px 0 56px;color:var(--soft);font-size:13px;text-align:center}
+
+    @media (max-width:960px){
+      .nav-links{display:none;position:absolute;top:78px;left:22px;right:22px;padding:12px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.97);box-shadow:var(--shadow);justify-content:flex-start}.nav-links.open{display:flex}.menu-btn{display:block}.intro-card,.project-card,.project-card:nth-child(even),.contact-panel{grid-template-columns:1fr}.project-card:nth-child(even) .project-media{order:0}.cards-3{grid-template-columns:1fr}.hero-meta{grid-template-columns:1fr 1fr}.pub{grid-template-columns:1fr;gap:8px}.pub-actions{justify-content:flex-start}
+    }
+    @media (max-width:620px){
+      .container{padding:0 16px}.section{padding:70px 0}.hero{padding-top:52px}.hero-meta{grid-template-columns:1fr}.hero-copy h1{font-size:43px}.tab-row{grid-template-columns:1fr}.intro-card,.project-card,.contact-panel{padding:18px;border-radius:20px}.media-duo,.media-duo.wide{grid-template-columns:1fr;min-height:unset}.media-frame{min-height:240px}.media-frame.video video{min-height:240px}.brand-text span{display:none}
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="#top" aria-label="Paul Sansah Gyreyiri home">
+        <div class="brand-mark">PS</div>
+        <div class="brand-text">
+          <strong>Paul Sansah Gyreyiri</strong>
+          <span>ML · 3D Vision · Immersive Computing</span>
+        </div>
+      </a>
+      <button class="menu-btn" id="menuBtn" aria-label="Open navigation">Menu</button>
+      <nav class="nav-links" id="navLinks" aria-label="Primary navigation">
+        <a href="#about">About</a>
+        <a href="#research">Research</a>
+        <a href="#skills">Skills</a>
+        <a href="#publications">Publications</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+        <a class="nav-cta" href="assets/Gyreyiri Paul Sansah resume_ggl.pdf" download>Download Resume</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">PhD candidate · University of Wyoming</div>
+          <!-- <h1>Building ML systems for <span>immersive computing, 3D vision, and security.</span></h1> -->
+          <h1>Leveraging ML for <span>secure, usable, and intelligent immersive systems.</span> </h1>
+          <p>
+            <!-- I design and evaluate end-to-end machine-learning systems for neural rendering, mixed-reality security, and behavioral biometrics. My work connects model design with practical XR deployment, realistic data collection, and longitudinal evaluation. -->
+            In my research, I design and evaluate end-to-end machine-learning systems, including 3D vision and neural rendering, Security Analysis, and behavioral biometrics for immersive systems.
+          </p>
+          <div class="hero-actions">
+            <a class="btn primary" href="assets/Gyreyiri Paul Sansah resume_ggl.pdf" download>Download Resume</a>
+            <a class="btn" href="#research">View Research</a>
+            <a class="btn yellow" href="mailto:gyreyirisansah@gmail.com">Contact Me</a>
+          </div>
+          <div class="hero-meta" aria-label="Research highlights">
+            <div class="metric"><strong>7+</strong><span>papers, submissions, and projects</span></div>
+            <div class="metric"><strong>3DGS</strong><span>neural rendering for interaction</span></div>
+            <div class="metric"><strong>XR</strong><span>privacy, security, and authentication</span></div>
+          </div>
+        </div>
+
+        <aside class="hero-media-card" aria-label="Featured research video">
+          <div class="video-shell">
+            <video controls autoplay loop muted playsinline poster="assets/hero_image.png">
+              <source src="assets/comparison_grid_new.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="caption"><strong>Cleaner Object Decoupling</strong><span>Gaussian Splatting / 3D vision interaction overview</span></div>
+          <div class="tab-row"><span>3D Vision</span><span>Computer Vision</span><span>Applied ML for MR Security</span><span>Immersive Computing</span><span>Biometrics</span></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container">
+        <div class="intro-card">
+          <div>
+            <div class="eyebrow">About</div>
+            <h2 class="section-title">Research at the intersection of perception, interaction, and security.</h2>
+            <p>
+              I am a PhD candidate in Computer Science at the University of Wyoming, advised by Dr. Diksha Shukla. My research builds practical ML systems for immersive environments: object-aware Gaussian Splatting for interaction, AR display side-channel analysis, and active authentication from gaze, head, hand, and EEG signals.
+            </p>
+            <p>
+              I enjoy turning research ideas into complete systems — collecting data, designing models, building pipelines, evaluating across realistic conditions, and integrating results into XR platforms such as Unity, OpenXR, HoloLens, and Quest.
+            </p>
+          </div>
+          <div class="status-panel">
+            <div class="status-row"><span>Current role</span><span>PhD Candidate</span></div>
+            <div class="status-row"><span>Institution</span><span>University of Wyoming</span></div>
+            <div class="status-row"><span>Advisor</span><span>Dr. Diksha Shukla</span></div>
+            <div class="status-row"><span>Expected defense</span><span>July 2026</span></div>
+            <div class="status-row"><span>Open to</span><span>ML Research / Research Engineer roles</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="research">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">Selected Research</div>
+          <h2 class="section-title">Selected projects</h2>
+          <p class="section-lede">Each project combines machine learning, systems building, and careful evaluation in immersive computing contexts.</p>
+        </div>
+
+        <div class="project-grid">
+          <article class="project-card">
+            <div class="project-media">
+              <div class="media-frame">
+                <img src="assets/hero_image.png" alt="RigidGS project visual" />
+              </div>
+              <div class="media-caption"><strong>RigidGS</strong> </div>
+            </div>
+            <div class="project-content">
+              <div class="project-kicker">3D Vision · Neural Rendering</div>
+              <h3>RigidGS — Object-decoupled Gaussian Splatting for VR interaction</h3>
+              <p>
+                A physics-aware 3D Gaussian Splatting pipeline that decouples objects from scenes so users can interact with Gaussian-rendered environments in VR. The system combines COLMAP, SAM2 mask propagation, LaMa inpainting, boundary regularization, and Unity/OpenXR runtime integration.
+              </p>
+              <div class="chips">
+                <span class="chip">3D Gaussian Splatting</span><span class="chip">PyTorch</span><span class="chip">SAM2</span><span class="chip">Unity/OpenXR</span><span class="chip">Rigid Body Interaction</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-media">
+              <div class="media-frame">
+                <img src="assets/architect.png" alt="LightLeaks Architecture" />
+              </div>
+              <div class="media-caption"><strong>LightLeaks Pipeline</strong></div>
+            </div>
+            <div class="project-content">
+              <div class="project-kicker">Computer Vision · Applied AI Security</div>
+              <h3>LightLeaks — Sensitive information exposure through AR display leakage</h3>
+              <p>
+                A computer-vision and LLM-assisted pipeline for reconstructing sensitive content from light passively leaked by optical see-through MR displays. The pipeline includes ROI extraction, temporal fusion, OCR enhancement, and semantic reconstruction.
+              </p>
+              <div class="chips">
+                <span class="chip">OpenCV</span><span class="chip">OCR</span><span class="chip">MediaPipe</span><span class="chip">LLM reasoning</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-media">
+              <div class="media-duo wide" aria-label="Two wide authentication visuals stacked for readability">
+                <div class="media-tile"><img src="assets/gyrey1-p6-gyrey-large.gif" alt="Eye movement biometric model visual" /></div>
+                <div class="media-tile"><img src="assets/vrst25-126-fig2.jpg" alt="Head movement authentication visual" /></div>
+              </div>
+              <div class="media-caption"><strong>Domain informed feature extractors and lightweight ResNet based models</strong> </div>
+            </div>
+            <div class="project-content">
+              <div class="project-kicker">Behavioral Biometrics · XR Authentication</div>
+              <h3>Active authentication for mixed reality from gaze, head, and hand signals</h3>
+              <p>
+                A multimodal authentication research line using natural in-headset behavior: eye movement dynamics, 6-DoF head motion, hand-controller kinematics, and EEG. The emphasis is practical evaluation, cross-session robustness, and longitudinal stability.
+              </p>
+              <div class="chips">
+                <span class="chip">ResNet</span><span class="chip">CNNs</span><span class="chip">Siamese Networks</span><span class="chip">Eye Movements</span><span class="chip">Head Movements</span><span class="chip">Hand Movements</span><span class="chip">Gait Patterns</span><span class="chip">EEG Signals</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="skills">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">Technical Stack</div>
+          <h2 class="section-title">Tools I use to build research systems</h2>
+        </div>
+        <div class="cards-3">
+          <div class="mini-card"><div class="icon">3D</div><h3>3D Vision & Graphics</h3><p>3D Gaussian Splatting, neural rendering, COLMAP, multi-view geometry, PyTorch3D, Blender, Unity.</p></div>
+          <div class="mini-card"><div class="icon">ML</div><h3>Machine Learning</h3><p>PyTorch, TensorFlow, scikit-learn, CNNs, ResNet, Siamese networks, SVMs, random forests.</p></div>
+          <div class="mini-card"><div class="icon">XR</div><h3>Computer Vision & XR</h3><p>OpenCV, SAM2, OCR pipelines, MediaPipe, CUDA plugins, OpenXR, HTC Vive Focus Vision, Quest 3, HoloLens.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="publications">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">Publications</div>
+          <h2 class="section-title">Selected publications</h2>
+          <p class="section-lede">A focused list of work across immersive security, behavioral biometrics, and 3D vision.</p>
+        </div>
+
+        <div class="pub-list">
+          <article class="pub"><div class="venue">2026 · ECCV<br><span>Under review</span></div><div><div class="pub-title">RigidGS: Geometry-Aware Object Decoupling for Rigid-Body Interaction in 3D Gaussian Splatting</div><div class="pub-authors">P. S. Gyreyiri,  and D. Shukla</div></div><div class="pub-actions"><a class="small-link" href="#">Paper TBA</a></div></article>
+          <article class="pub"><div class="venue">2026 · ACM CCS<br><span>Under review</span></div><div><div class="pub-title">LightLeaks: Sensitive Web Information Exposure through Light Leakage in Mixed Reality Displays</div><div class="pub-authors">P. S. Gyreyiri, et al.</div></div><div class="pub-actions"><a class="small-link" href="#">Paper TBA</a></div></article>
+           <article class="pub"><div class="venue">2026 · ACM TOPS<br><span>Under review</span></div><div><div class="pub-title">VR-Gate: Behavioral Authentication from Head and Hand Motion During Virtual Door Opening</div><div class="pub-authors">P. S. Gyreyiri,  and D. Shukla</div></div><div class="pub-actions"><a class="small-link" href="#">Paper TBA</a></div></article>
+          <article class="pub"><div class="venue">2025 · IEEE WIFS</div><div><div class="pub-title">Domain-Informed Eye Movement Biometrics with Practical Evaluation for VR/AR User Authentication</div><div class="pub-authors">P. S. Gyreyiri,  and D. Shukla</div></div><div class="pub-actions"><a class="small-link" href="https://ieeexplore.ieee.org/abstract/document/11458544">Paper</a></div></article>
+          <article class="pub"><div class="venue">2025 · ACM VRST</div><div><div class="pub-title">Head Movement Biometrics for Continuous Authentication in Virtual Reality</div><div class="pub-authors">P. S. Gyreyiri and D. Shukla</div></div><div class="pub-actions"><a class="small-link" href="https://dl.acm.org/doi/full/10.1145/3756884.3768408">Paper</a></div></article>
+          <article class="pub"><div class="venue">2024 · IEEE FG</div><div><div class="pub-title">HM-Auth: Redefining User Authentication in Immersive Virtual World Through Hand Movement Signatures</div><div class="pub-authors">S. R. K. Gopal, P. S. Gyreyiri, and D. Shukla</div></div><div class="pub-actions"><a class="small-link" href="https://ieeexplore.ieee.org/abstract/document/10582019" target="_blank" rel="noopener">Paper</a></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="experience">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">Experience & Education</div>
+          <h2 class="section-title">Academic and professional path</h2>
+        </div>
+        <div class="timeline">
+          <div class="timeline-item"><div class="when">2023 — Present</div><h3>Graduate Research Assistant</h3><p>University of Wyoming · Secure Sensing and Learning (SSL) Lab</p></div>
+          <div class="timeline-item"><div class="when">2022 — 2024</div><h3>Teaching Assistant</h3><p>Machine Learning, Computer Science I, and Introductory Python courses.</p></div>
+          <div class="timeline-item"><div class="when">2021 — 2022</div><h3>Software Developer</h3><p>Super Tech Limited, Accra · Spring Boot microservices and frontend development.</p></div>
+          <div class="timeline-item"><div class="when">Education</div><h3>PhD Computer Science · University of Wyoming</h3><p>Expected July 2026. BSc First Class Honors in Computer Science & Engineering, University of Mines & Technology.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="contact-panel">
+          <div>
+            <div class="eyebrow">Contact</div>
+            <h2>Let’s build intelligent immersive systems.</h2>
+            <p>I am open to ML research scientist, research engineer, applied scientist, and collaboration opportunities in 3D vision, neural rendering, XR, and AI security.</p>
+            <div class="hero-actions">
+              <a class="btn primary" href="assets/Gyreyiri Paul Sansah resume_ggl.pdf" download>Download Resume</a>
+              <a class="btn yellow" href="mailto:gyreyirisansah@gmail.com">Send Email</a>
+            </div>
+          </div>
+          <div class="contact-links">
+            <a href="mailto:gyreyirisansah@gmail.com"><span>Email</span><span>gyreyirisansah@gmail.com</span></a>
+            <a href="https://github.com/gyreyirisansah" target="_blank" rel="noopener"><span>GitHub</span><span>gyreyirisansah →</span></a>
+            <a href="https://scholar.google.com/citations?user=I_euDjcAAAAJ&hl=en" target="_blank" rel="noopener"><span>Google Scholar</span><span>gyreyiri →</span></a>
+            <a href="https://www.linkedin.com/in/paul-gyreyiri-844804172" target="_blank" rel="noopener"><span>LinkedIn</span><span>gyreyiri →</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© <span id="year"></span> Paul Sansah Gyreyiri. Built for research, collaboration, and opportunity.</div>
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    menuBtn.addEventListener('click', () => navLinks.classList.toggle('open'));
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+    const sections = [...document.querySelectorAll('main section[id]')];
+    const navItems = [...document.querySelectorAll('.nav-links a[href^="#"]')];
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          navItems.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id));
+        }
+      });
+    }, {rootMargin:'-40% 0px -55% 0px', threshold:0});
+    sections.forEach(section => observer.observe(section));
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
